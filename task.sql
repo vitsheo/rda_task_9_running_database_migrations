@@ -1,40 +1,51 @@
---liquibase formatted sql
+-- liquibase formatted sql
 
---changeset mate.acamemy:1 labels:0.0.1
+-- changeset developer:1 labels:0.0.1
 CREATE TABLE Countries (
-    ID INT,
-    Name VARCHAR(50),
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
     PRIMARY KEY (ID)
 );
---rollback DROP TABLE Countries;
 
---changeset mate.acamemy:2 labels:0.0.1
 CREATE TABLE Products (
-    ID INT AUTO_INCREMENT,
-    Name VARCHAR(50),
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
     PRIMARY KEY (ID)
 );
---rollback DROP TABLE Products;
 
---changeset mate.acamemy:3 labels:0.0.1
 CREATE TABLE Warehouses (
-    ID INT AUTO_INCREMENT,
-    Name VARCHAR(50),
-    Address VARCHAR(50),
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    Address VARCHAR(255),
     CountryID INT,
-	FOREIGN KEY (CountryID) REFERENCES Countries(ID) ON DELETE NO ACTION,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(ID)
 );
---rollback DROP TABLE Warehouses;
 
---changeset mate.acamemy:4 labels:0.0.1
 CREATE TABLE ProductInventory (
-    ID INT,
-    ProductID INT,
-    FOREIGN KEY (ProductID) REFERENCES Products(ID) ON DELETE NO ACTION,
-    WarehouseAmount INT,
-    WarehouseID INT,
-    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(ID) ON DELETE NO ACTION,
+    ID INT NOT NULL AUTO_INCREMENT,
+    ProductID INT NOT NULL,
+    WarehouseAmount INT NOT NULL DEFAULT 0,
+    WarehouseID INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ID),
+    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(ID)
+);
+-- rollback DROP TABLE ProductInventory;
+-- rollback DROP TABLE Warehouses;
+-- rollback DROP TABLE Products;
+-- rollback DROP TABLE Countries;
+
+-- changeset developer:2 labels:0.0.2
+CREATE TABLE Users (
+    ID INT NOT NULL AUTO_INCREMENT,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
     PRIMARY KEY (ID)
 );
---rollback DROP TABLE ProductInventory;
+-- rollback DROP TABLE Users;
+
+-- changeset developer:3 labels:0.0.3
+CREATE INDEX idx_users_email ON Users (Email);
+-- rollback DROP INDEX idx_users_email ON Users;
