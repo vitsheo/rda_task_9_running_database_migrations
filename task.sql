@@ -39,7 +39,7 @@ CREATE TABLE ProductInventory (
 );
 -- rollback DROP TABLE ProductInventory;
 
--- changeset mate.acamemy:5 labels:0.0.2
+-- changeset mate.acamemy:5 labels:0.0.2 alwaysRun:true
 CREATE TABLE Users (
     ID INT NOT NULL AUTO_INCREMENT,
     FirstName VARCHAR(100) NOT NULL,
@@ -49,6 +49,6 @@ CREATE TABLE Users (
 );
 -- rollback DROP TABLE Users;
 
--- changeset mate.acamemy:6 labels:0.0.3
+-- changeset mate.acamemy:6 labels:0.0.3 alwaysRun:true
 CREATE INDEX idx_users_email ON Users (Email);
 -- rollback DROP INDEX idx_users_email ON Users;
