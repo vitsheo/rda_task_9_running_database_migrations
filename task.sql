@@ -52,3 +52,20 @@ CREATE TABLE Users (
 -- changeset mate.acamemy:6 labels:0.0.3 alwaysRun:true
 CREATE INDEX idx_users_email ON Users (Email);
 -- rollback DROP INDEX idx_users_email ON Users;
+
+--changeset student:users-002 labels:0.0.2
+CREATE TABLE Users (
+    ID INT NOT NULL AUTO_INCREMENT,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Email VARCHAR(255),
+    PRIMARY KEY (ID)
+);
+
+--rollback DROP TABLE Users;
+
+--changeset student:users-email-index-003 labels:0.0.3
+CREATE INDEX Email ON Users (Email);
+
+--rollback DROP INDEX Email ON Users;
+
